@@ -1,3 +1,9 @@
+/*package micrometer provides a HandlerWrapper which reports RPC requests'
+timings and counts via provided go-platform/metrics.Metrics spawner.
+
+It reports rpc_response_time_ms counter, rpc_response_time histogram buckets
+and rpc_errors counter. Every metric is divided by tags "service" and "method".
+*/
 package micrometer
 
 import (
@@ -13,5 +19,5 @@ func NewWrapper(mSpawner metrics.Metrics) server.HandlerWrapper {
 		timeHisto: mSpawner.Histogram("rpc_response_time"),
 		errCount:  mSpawner.Counter("rpc_errors"),
 	}
-	return w.WrapWithMetrics
+	return w.wrapWithMetrics
 }

@@ -13,9 +13,9 @@ type w struct {
 	errCount  metrics.Counter
 }
 
-var _ server.HandlerWrapper = (&w{}).WrapWithMetrics
+var _ server.HandlerWrapper = (&w{}).wrapWithMetrics
 
-func (w *w) WrapWithMetrics(fn server.HandlerFunc) server.HandlerFunc {
+func (w *w) wrapWithMetrics(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {
 		fields := metrics.Fields{"service": req.Service(), "method": req.Method()}
 
